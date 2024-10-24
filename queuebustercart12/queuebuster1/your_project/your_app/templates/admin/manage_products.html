@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+
+{% block title %}Manage Products{% endblock %}
+
+{% block content %}
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f9f9f9;
+        margin: 0;
+        padding: 0;
+    }
+
+    h1 {
+        text-align: center;
+        color: #333;
+        font-size: 2.5em;
+        margin-top: 20px;
+        margin-bottom: 30px;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    li {
+        background-color: #fff;
+        margin: 10px 0;
+        padding: 15px;
+        border-radius: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease-in-out;
+    }
+
+    li:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+    }
+
+    .product-info {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .product-name {
+        font-size: 1.2em;
+        font-weight: bold;
+        color: #333;
+    }
+
+    .product-quantity {
+        font-size: 1.1em;
+        font-weight: normal;
+        color: #17a2b8;
+    }
+
+    .product-price {
+        font-size: 1.1em;
+        font-weight: normal;
+        color: #28a745;
+    }
+
+    .remove-btn {
+        padding: 5px 10px;
+        background-color: #dc3545;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease-in-out;
+    }
+
+    .remove-btn:hover {
+        background-color: #c82333;
+    }
+
+    .add-product-btn {
+        display: block;
+        margin: 30px auto;
+        padding: 10px 25px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        font-size: 1.1em;
+        cursor: pointer;
+        transition: background-color 0.3s ease-in-out;
+    }
+
+    .add-product-btn:hover {
+        background-color: #0056b3;
+    }
+</style>
+
+<h1>Manage Products</h1>
+<ul>
+    {% for product in products %}
+        <li>
+            <div class="product-info">
+                <span class="product-name">{{ product.name }}</span>
+                <span class="product-quantity">Quantity: {{ product.quantity }}</span>
+                <span class="product-price">${{ product.price }}</span>
+            </div>
+            <!-- Remove button -->
+            <form method="POST" action="{% url 'remove_product' product.id %}">
+                {% csrf_token %}
+                <button type="submit" class="remove-btn">Remove</button>
+            </form>
+        </li>
+    {% endfor %}
+</ul>
+
+<!-- Redirect to the scan page to obtain the barcode -->
+<button class="add-product-btn" onclick="window.location.href='{% url 'scan' %}'">Add New Product</button>
+
+{% endblock %}

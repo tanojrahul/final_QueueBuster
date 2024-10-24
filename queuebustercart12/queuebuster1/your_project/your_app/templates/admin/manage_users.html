@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block title %}Manage Users{% endblock %}
+
+{% block content %}
+<nav style="background-color: #007bff; padding: 15px; color: white; display: flex; justify-content: space-between; align-items: center;">
+    <div>
+        <h1 style="margin: 0; font-size: 24px;">Admin Dashboard</h1>
+    </div>
+    <div>
+        <a href="{% url 'admin_dashboard' %}" style="color: white; text-decoration: none; margin: 0 15px;">Dashboard</a>
+        <a href="{% url 'manage_users' %}" style="color: white; text-decoration: none; margin: 0 15px;">Manage Users</a>
+        <a href="{% url 'manage_products' %}" style="color: white; text-decoration: none; margin: 0 15px;">Manage Products</a>
+        <a href="{% url 'logout' %}" style="color: white; text-decoration: none; margin: 0 15px;">Logout</a>
+    </div>
+</nav>
+
+<div style="max-width: 600px; margin: 50px auto; padding: 20px; background-color: #fff; border-radius: 5px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);">
+    <h2 style="text-align: center; color: #007bff;">Manage Users</h2>
+    <ul style="list-style-type: none; padding: 0; margin: 20px 0;">
+        {% for user in users %}
+        <li style="padding: 10px; border-bottom: 1px solid #e0e0e0; display: flex; justify-content: space-between; align-items: center;">
+            <div>
+                <strong style="color: #007bff;">{{ user.username }}</strong> - <span style="color: #666;">{{ user.email }}</span>
+            </div>
+            <button onclick="confirmDeletion('{{ user.username }}')" style="background-color: #dc3545; color: white; border: none; border-radius: 3px; padding: 5px 10px; cursor: pointer;">
+                Remove
+            </button>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f5f5f5;
+        margin: 0;
+        color: #333;
+    }
+    nav a:hover {
+        text-decoration: underline; /* Add underline on hover for better visibility */
+    }
+    h2 {
+        margin-bottom: 20px;
+    }
+    li {
+        transition: background-color 0.3s;
+    }
+    li:hover {
+        background-color: #f1f1f1; /* Light background on hover */
+    }
+</style>
+
+<script>
+    function confirmDeletion(username) {
+        const confirmation = confirm("Are you sure you want to remove " + username + "?");
+        if (confirmation) {
+            // Code to remove the user (you can redirect or make an AJAX call)
+            alert(username + " has been removed."); // Placeholder for actual removal logic
+        }
+    }
+</script>
+
+{% endblock %}

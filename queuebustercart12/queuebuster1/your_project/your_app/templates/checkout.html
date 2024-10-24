@@ -1,0 +1,44 @@
+<!-- templates/checkout.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cashfree Checkout Integration</title>
+    <script src="https://sdk.cashfree.com/js/v3/cashfree.js"></script>
+</head>
+<body>
+    <div class="row">
+        <p>Click below to open the checkout page in the current tab</p>
+        <button id="renderBtn">Pay Now</button>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const cashfree = Cashfree({ mode: "sandbox" });
+
+            document.getElementById("renderBtn").addEventListener("click", () => {
+                const paymentSessionId = "{{ payment_session_id }}";  // Django variable
+
+                if (!paymentSessionId) {
+                    alert("Payment session ID is missing!");
+                    return;
+                }
+
+                console.log("Payment Session ID:", paymentSessionId);
+
+                let checkoutOptions = {
+                    paymentSessionId: paymentSessionId,
+                    redirectTarget: "_self",  // Open in the same tab
+                };
+
+                try {
+                    cashfree.checkout(checkoutOptions);
+                } catch (error) {
+                    console.error("Error initializing Cashfree checkout:", error);
+                    alert("Failed to initiate payment. Check console for details.");
+                }
+            });
+        });
+    </script>
+</body>
+</html>

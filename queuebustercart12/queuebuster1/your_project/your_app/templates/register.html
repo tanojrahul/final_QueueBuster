@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %}Register{% endblock %}
+{% block content %}
+<div style="max-width: 400px; margin: 100px auto; text-align: center;">
+    <h2>Register</h2>
+    <form method="POST" action="{% url 'register' %}" style="display: flex; flex-direction: column;">
+        {% csrf_token %}
+        <input type="text" name="username" placeholder="Username" required style="margin-bottom: 15px; padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 5px;">
+        <input type="email" name="email" placeholder="Email" required style="margin-bottom: 15px; padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 5px;">
+        <input type="password" name="password1" placeholder="Password" required style="margin-bottom: 15px; padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 5px;">
+        <input type="password" name="password2" placeholder="Confirm Password" required style="margin-bottom: 15px; padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 5px;">
+        <button type="submit" style="background-color: #28a745; color: white; padding: 10px; font-size: 16px; border: none; border-radius: 5px; cursor: pointer;">
+            Register
+        </button>
+    </form>
+    <p style="margin-top: 15px;">Already have an account? <a href="{% url 'login' %}" style="color: #007bff;">Login here</a></p>
+</div>
+{% endblock %}

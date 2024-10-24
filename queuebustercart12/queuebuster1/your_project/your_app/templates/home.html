@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+    <header class="hero-section">
+        <h1>Welcome to Your Store</h1>
+        <p>Your one-stop shop for all your needs!</p>
+    </header>
+
+    <main class="container">
+        <section class="instructions">
+            <h2>How to Use This App</h2>
+            <ol>
+                <li><strong>Register or Log In:</strong> Create an account or log in if you already have one.</li>
+                <li><strong>Scan Products:</strong> Use the scan feature to scan QR codes of products.</li>
+                <li><strong>Add to Cart:</strong> Scanned products will automatically be added to your cart.</li>
+                <li><strong>Review Your Cart:</strong> Check the items in your cart and ensure everything looks good.</li>
+                <li><strong>Proceed to Checkout:</strong> Complete your purchase by following the checkout process.</li>
+                <li><strong>Enjoy Your Shopping:</strong> Your products will be delivered to you soon!</li>
+            </ol>
+        </section>
+
+        <section class="tips">
+            <h2>Shopping Tips</h2>
+            <ul>
+                <li>Always double-check the quantity before checkout.</li>
+                <li>Look for discounts and offers on products.</li>
+                <li>If you have any issues, feel free to contact our support.</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2024 Your Store. All rights reserved.</p>
+    </footer>
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            color: #333;
+        }
+        .hero-section {
+            background-color: #007bff;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 5px;
+            margin: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+        .container {
+            margin: 10px;
+            padding: 10px;
+        }
+        section {
+            background-color: white;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: #007bff;
+            font-size: 1.5em;
+        }
+        ol, ul {
+            line-height: 1.6;
+            padding-left: 20px;  /* Indentation for list items */
+        }
+        li {
+            margin-bottom: 5px;  /* Space between list items */
+        }
+        .footer {
+            text-align: center;
+            padding: 10px;
+            margin-top: 20px;
+            background-color: #e9ecef;
+            border-radius: 5px;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 600px) {
+            .hero-section {
+                padding: 15px;
+            }
+            h2 {
+                font-size: 1.3em; /* Smaller heading size for mobile */
+            }
+            .container {
+                margin: 5px; /* Reduced margin for smaller screens */
+            }
+            section {
+                padding: 10px; /* Less padding on mobile */
+            }
+        }
+    </style>
+{% endblock %}
+
+<script>
+    // Optional JavaScript for enhancing interactivity
+    document.addEventListener("DOMContentLoaded", function() {
+        // Add any JS functionality you want to implement here
+    });
+</script>

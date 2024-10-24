@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Scan</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        h1 {
+            color: #0a74da;
+            font-size: 2.2em;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        #barcode-scanner {
+            width: 80%;
+            max-width: 400px;
+            height: 250px;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #0a74da;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1em;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background-color: #045aab;
+        }
+
+        #barcode-result {
+            margin-top: 20px;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #333;
+        }
+
+        /* Center the scanning box inside the scanner */
+        .scanner-box {
+            border: 2px dashed #0a74da;
+            width: 100%;
+            height: 40%;
+            position: absolute;
+            top: 30%;
+            left: 0;
+            right: 0;
+            margin: 0 auto;
+            box-sizing: border-box;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Scan a Product</h1>
+        <div id="barcode-scanner">
+            <!-- Rectangle scanning box for admin scanning -->
+            <div class="scanner-box"></div>
+        </div>
+        <div id="barcode-result"></div>
+        <!-- Scan More button -->
+        <button id="scan-more">Scan More</button>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/quagga/0.12.1/quagga.min.js"></script>
+    <script>
+        // Function to get the CSRF token from the cookie
+        function getCSRFToken() {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.startsWith('csrftoken=')) {
+                    return cookie.substring('csrftoken='.length);
+                }
+            }
+            return '';
+        }
+
+        function onScanSuccess(code) {
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = `/admin1/add-product/${code}`;
+
+            // Add CSRF token to form
+            const csrfInput = document.createElement('input');
+            csrfInput.type = 'hidden';
+            csrfInput.name = 'csrfmiddlewaretoken';
+            csrfInput.value = getCSRFToken();
+            form.appendChild(csrfInput);
+
+            form.innerHTML += `<input type="hidden" name="product_id" value="${code}">`;
+            document.body.appendChild(form);
+            form.submit();
+        }
+
+        Quagga.init({
+            inputStream: {
+                name: "Live",
+                type: "LiveStream",
+                target: document.querySelector('#barcode-scanner'),
+                constraints: {
+                    width: 640,
+                    height: 480,
+                    facingMode: "environment"
+                }
+            },
+            decoder: {
+                readers: ["code_128_reader", "ean_reader", "ean_8_reader", "upc_reader", "upc_e_reader"]
+            }
+        }, function(err) {
+            if (err) {
+                console.error(err);
+                alert("Barcode scanner initialization failed.");
+                return;
+            }
+            Quagga.start();
+        });
+
+        Quagga.onDetected(function(result) {
+            var code = result.codeResult.code;
+            onScanSuccess(code);
+            Quagga.stop();
+        });
+
+        // Restart scanner when "Scan More" is clicked
+        document.getElementById('scan-more').addEventListener('click', function() {
+            if (!Quagga.isRunning()) {
+                document.getElementById('barcode-result').innerText = "";  // Clear previous scan result
+                Quagga.start();  // Re-enable the scanner
+            }
+        });
+    </script>
+</body>
+</html>

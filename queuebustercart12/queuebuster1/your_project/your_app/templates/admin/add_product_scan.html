@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title %}Add Product by Scanning{% endblock %}
+
+{% block content %}
+<h1>Add Products by Scanning</h1>
+<!-- Include your barcode scanning code here -->
+<form action="{% url 'add_product' barcode %}/" method="POST">
+    {% csrf_token %}
+    <label for="barcode">Scan Product Barcode</label>
+    <input type="text" id="barcode" name="barcode">
+    <button type="submit">Add Product</button>
+</form>
+{% endblock %}

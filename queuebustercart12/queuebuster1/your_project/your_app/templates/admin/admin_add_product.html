@@ -1,0 +1,77 @@
+<h2 style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #2c3e50; text-align: center; margin-bottom: 20px;">
+    {% if product_exists %}Update Product{% else %}Add New Product{% endif %}
+</h2>
+
+<form method="POST" style="max-width: 600px; margin: 0 auto; padding: 25px; background-color: #ecf0f1; border-radius: 10px; box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);">
+    {% csrf_token %}
+    <div style="margin-bottom: 20px;">
+        <label for="barcode" style="display: block; font-weight: bold; color: #2980b9; margin-bottom: 5px;">Barcode:</label>
+        <input type="text" id="barcode" name="barcode" value="{{ barcode }}"
+               style="width: 100%; padding: 12px; border: 1px solid #bdc3c7; border-radius: 8px; background-color: #ecf0f1; color: #7f8c8d; box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);">
+    </div>
+
+    <div style="margin-bottom: 20px;">
+        <label for="product_name" style="display: block; font-weight: bold; color: #2980b9; margin-bottom: 5px;">Product Name:</label>
+        <input type="text" id="product_name" name="product_name"
+               value="{% if product_exists %}{{ product.name }}{% else %}''{% endif %}"
+               style="width: 100%; padding: 12px; border: 1px solid #bdc3c7; border-radius: 8px; background: linear-gradient(145deg, #ffffff, #f1f2f6); box-shadow: inset 0 3px 6px rgba(0,0,0,0.1); transition: box-shadow 0.3s;">
+    </div>
+
+    <div style="margin-bottom: 20px;">
+        <label for="description" style="display: block; font-weight: bold; color: #2980b9; margin-bottom: 5px;">Description:</label>
+        <textarea id="description" name="description"
+                  style="width: 100%; padding: 12px; border: 1px solid #bdc3c7; border-radius: 8px; background: linear-gradient(145deg, #ffffff, #f1f2f6); box-shadow: inset 0 3px 6px rgba(0,0,0,0.1); min-height: 100px; transition: box-shadow 0.3s;">{% if product_exists %}{{ product.description }}{% else %}''{% endif %}</textarea>
+    </div>
+
+    <div style="margin-bottom: 20px;">
+        <label for="price" style="display: block; font-weight: bold; color: #2980b9; margin-bottom: 5px;">Price:</label>
+        <input type="number" id="price" name="price"
+               value="{% if product_exists %}{{ product.price }}{% else %}''{% endif %}"
+               style="width: 100%; padding: 12px; border: 1px solid #bdc3c7; border-radius: 8px; background: linear-gradient(145deg, #ffffff, #f1f2f6); box-shadow: inset 0 3px 6px rgba(0,0,0,0.1); transition: box-shadow 0.3s;">
+    </div>
+
+    <div style="margin-bottom: 20px;">
+        <label for="quantity" style="display: block; font-weight: bold; color: #2980b9; margin-bottom: 5px;">Quantity:</label>
+        <input type="number" id="quantity" name="quantity"
+               value="{% if product_exists %}{{ product.quantity }}{% else %}''{% endif %}"
+               style="width: 100%; padding: 12px; border: 1px solid #bdc3c7; border-radius: 8px; background: linear-gradient(145deg, #ffffff, #f1f2f6); box-shadow: inset 0 3px 6px rgba(0,0,0,0.1); transition: box-shadow 0.3s;">
+    </div>
+
+    <button type="submit" style="background-color: #27ae60; color: white; padding: 12px; border: none; border-radius: 8px; font-size: 18px; width: 100%; cursor: pointer; transition: background-color 0.3s;">
+        Save
+    </button>
+</form>
+
+<script>
+    // JavaScript for validation and additional styling effects
+    document.querySelector('form').addEventListener('submit', function(event) {
+        const productName = document.getElementById('product_name').value.trim();
+        const price = document.getElementById('price').value.trim();
+        const quantity = document.getElementById('quantity').value.trim();
+
+        if (!productName || !price || !quantity) {
+            alert('Please fill in all required fields!');
+            event.preventDefault(); // Prevent form submission if validation fails
+        }
+    });
+
+    // Add hover effect for text inputs
+    const inputs = document.querySelectorAll('input, textarea');
+    inputs.forEach(input => {
+        input.addEventListener('focus', function() {
+            input.style.boxShadow = '0 0 8px rgba(46, 204, 113, 0.5)';
+        });
+        input.addEventListener('blur', function() {
+            input.style.boxShadow = 'inset 0 3px 6px rgba(0,0,0,0.1)';
+        });
+    });
+
+    // Hover effect for submit button
+    const button = document.querySelector('button');
+    button.addEventListener('mouseover', function() {
+        button.style.backgroundColor = '#2ecc71';
+    });
+    button.addEventListener('mouseout', function() {
+        button.style.backgroundColor = '#27ae60';
+    });
+</script>

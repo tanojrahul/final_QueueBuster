@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% block title %}Your Cart{% endblock %}
+{% block content %}
+<div style="max-width: 600px; margin: 50px auto; text-align: center;">
+    <h2 style="font-size: 2em; margin-bottom: 20px; color: #333;">Your Cart</h2>
+
+    {% if cart_items %}
+    <table style="width: 100%; text-align: left; border-collapse: collapse; margin-bottom: 20px;">
+        <thead>
+            <tr>
+                <th style="padding: 10px; border-bottom: 2px solid #007bff; color: #007bff; font-weight: bold;">Product</th>
+                <th style="padding: 10px; border-bottom: 2px solid #007bff; color: #007bff; font-weight: bold;">Quantity</th>
+                <th style="padding: 10px; border-bottom: 2px solid #007bff; color: #007bff; font-weight: bold;">Price (₹)</th>
+                <th style="padding: 10px; border-bottom: 2px solid #007bff; color: #007bff; font-weight: bold;">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in cart_items %}
+            <tr style="border-bottom: 1px solid #ddd; transition: background-color 0.3s;">
+                <td style="padding: 10px;">{{ item.product.name }}</td>
+                <td style="padding: 10px;">{{ item.quantity }}</td>
+                <td style="padding: 10px;">₹{{ item.subtotal }}</td>
+                <td style="padding: 10px;">
+                    <form action="{% url 'remove_from_cart' item.id %}" method="POST" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit" style="background-color: #dc3545; color: white; border: none; border-radius: 5px; padding: 5px 10px; cursor: pointer; transition: background-color 0.3s;">
+                            Remove
+                        </button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <p style="font-size: 1.5em; font-weight: bold; margin-top: 20px;">Total: ₹{{ subtotal }}</p>
+    <div style="margin-top: 20px;">
+        <a href="{% url 'checkout' %}">
+            <button style="background-color: #28a745; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; transition: background-color 0.3s;">
+                Checkout
+            </button>
+        </a>
+    </div>
+    {% else %}
+    <p style="font-size: 1.2em; color: #666;">Your cart is empty. Start adding products!</p>
+    <a href="{% url 'scan' %}">
+        <button style="background-color: #007bff; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; transition: background-color 0.3s;">
+            Scan Products
+        </button>
+    </a>
+    {% endif %}
+</div>
+
+<!-- Optional JavaScript for enhancing interactivity -->
+<script>
+    // Add event listeners for buttons to enhance user experience
+    const removeButtons = document.querySelectorAll('button[type="submit"]');
+    removeButtons.forEach(button => {
+        button.addEventListener('mouseover', () => {
+            button.style.backgroundColor = '#c82333'; // Darker red on hover
+        });
+        button.addEventListener('mouseout', () => {
+            button.style.backgroundColor = '#dc3545'; // Original red
+        });
+    });
+
+    const checkoutButton = document.querySelector('a[href="{% url 'checkout' %}"] button');
+    checkoutButton.addEventListener('mouseover', () => {
+        checkoutButton.style.backgroundColor = '#218838'; // Darker green on hover
+    });
+    checkoutButton.addEventListener('mouseout', () => {
+        checkoutButton.style.backgroundColor = '#28a745'; // Original green
+    });
+</script>
+
+{% endblock %}
