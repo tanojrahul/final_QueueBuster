@@ -83,7 +83,7 @@ def checkout(request):
     )
 
     order_meta = OrderMeta(
-        return_url="https://www.cashfree.com/devstudio/preview/pg/web/checkout?order_id={order_id}"
+        return_url="https://final-queuebuster.onrender.com/payment-success/"
     )
     create_order_request.order_meta = order_meta
 
