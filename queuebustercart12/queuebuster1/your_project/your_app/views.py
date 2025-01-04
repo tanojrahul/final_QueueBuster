@@ -44,10 +44,10 @@ from cashfree_pg.models.customer_details import CustomerDetails
 from cashfree_pg.models.order_meta import OrderMeta
 from .models import Product
 
-Cashfree.XClientId = "TEST103249226ce0eb2c37ee62680bc722942301"
-Cashfree.XClientSecret = "cfsk_ma_test_e0c093c7529b1bb8ac0faf448326ff2b_6396be77"
-Cashfree.XEnvironment = Cashfree.SANDBOX
-x_api_version = "2023-08-01"
+# Cashfree.XClientId = "TEST103249226ce0eb2c37ee62680bc722942301"
+# Cashfree.XClientSecret = "cfsk_ma_test_e0c093c7529b1bb8ac0faf448326ff2b_6396be77"
+# Cashfree.XEnvironment = Cashfree.SANDBOX
+# x_api_version = "2023-08-01"
 import uuid  # Importing uuid to generate unique order IDs
 
 import random
