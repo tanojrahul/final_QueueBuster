@@ -37,12 +37,12 @@ LOGIN_URL = '/login/'
 CASHFREE_APP_ID = '775915c89f863292533318c921519577'  # Replace with your App ID
 CASHFREE_SECRET_KEY = 'cfsk_ma_prod_a118c35ba2dcebae44ea512153524292_800d4fde'  # Replace with your Secret Key
 # CASHFREE_RETURN_URL = 'http://127.0.0.1:8000/payment-success/'
-CASHFREE_PAYMENT_URL = 'https://sandbox.cashfree.com/pg/orders'  # Use 'https://api.cashfree.com/pg/orders' for production
-CASHFREE_API_URL = 'https://sandbox.cashfree.com/pg'  # Optional, if you're using this URL elsewhere
+CASHFREE_PAYMENT_URL = 'https://api.cashfree.com/pg/orders'  # Use 'https://api.cashfree.com/pg/orders' for production
+CASHFREE_API_URL = 'https://api.cashfree.com/pg'  # Optional, if you're using this URL elsewhere
 
-CASHFREE_RETURN_URL = 'http://127.0.0.1:8000/payment-success/'  # Change when deployed
-CASHFREE_CLIENT_ID = '775915c89f863292533318c921519577'
-CASHFREE_CLIENT_SECRET = 'cfsk_ma_prod_a118c35ba2dcebae44ea512153524292_800d4fde'
+# CASHFREE_RETURN_URL = 'http://127.0.0.1:8000/payment-success/'  # Change when deployed
+# CASHFREE_CLIENT_ID = '775915c89f863292533318c921519577'
+# CASHFREE_CLIENT_SECRET = 'cfsk_ma_prod_a118c35ba2dcebae44ea512153524292_800d4fde'
 # Application definition
 
 # SECURE_SSL_REDIRECT = True

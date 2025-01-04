@@ -15,7 +15,7 @@ from cashfree_pg.models.order_meta import OrderMeta
 
 Cashfree.XClientId = "775915c89f863292533318c921519577"
 Cashfree.XClientSecret = "cfsk_ma_prod_a118c35ba2dcebae44ea512153524292_800d4fde"
-Cashfree.XEnvironment = Cashfree.SANDBOX
+Cashfree.XEnvironment = Cashfree.PRODUCTION
 x_api_version = "2023-08-01"
 
 
@@ -83,7 +83,7 @@ def checkout(request):
     )
 
     order_meta = OrderMeta(
-        return_url="https://www.cashfree.com/devstudio/preview/pg/web/checkout?order_id={order_id}"
+        return_url="https://final-queuebuster.onrender.com/payment-success/"
     )
     create_order_request.order_meta = order_meta
 

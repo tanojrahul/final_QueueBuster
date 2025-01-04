@@ -13,7 +13,7 @@
 
 <!-- Buttons for Scan More and Go to Cart -->
 <div style="display: flex; justify-content: center; gap: 20px; margin-top: 20px;">
-    <button id="scan-more" style="padding: 10px 20px; font-size: 1.1em; background-color: #0a74da; color: white; border: none; border-radius: 5px; cursor: pointer;">Scan More</button>
+    <button id="scan-more" href="{% url 'scan' %}" style="padding: 10px 20px; font-size: 1.1em; background-color: #0a74da; color: white; border: none; border-radius: 5px; cursor: pointer;">Scan More</button>
     <button id="go-to-cart" style="padding: 10px 20px; font-size: 1.1em; background-color: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer;">Go to Cart</button>
 </div>
 
@@ -97,6 +97,7 @@
             document.getElementById('barcode-reader-results').innerText = "";  // Clear previous scan result
             document.getElementById('message-area').innerText = "";  // Clear message area
             Quagga.start();  // Re-enable the scanner
+
         }
     });
 
